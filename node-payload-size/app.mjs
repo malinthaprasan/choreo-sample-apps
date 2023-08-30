@@ -1,14 +1,15 @@
 import express from "express";
 import cache from "./cache.mjs";
 import { v4 as uuidv4 } from "uuid";
+import bodyParser from 'body-parser';
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: "50mb"}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
 // add a book - request body should contain a title, status and an author
 app.post("/reading-list/payload-size", (req, res) => {
-  const payloadSize = Buffer.byteLength(JSON.stringify(req.body));
+  const payloadSize = JSON.stringify(req.body).length;
   res.json({ payloadSize: payloadSize });
 });
 
