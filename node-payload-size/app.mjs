@@ -7,13 +7,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // add a book - request body should contain a title, status and an author
-app.post("/payload-size", (req, res) => {
+app.post("/reading-list/payload-size", (req, res) => {
   const payloadSize = Buffer.byteLength(JSON.stringify(req.body));
   res.json({ payloadSize: payloadSize });
 });
 
 // health check
-app.get("/healthz", (_, res) => {
+app.get("/reading-list/payload-size", (_, res) => {
   return res.sendStatus(200);
 });
 
